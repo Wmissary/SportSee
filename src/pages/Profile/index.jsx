@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import fetchProfileData from "../../services/fetchProfileData";
+//import fetchProfileData from "../../services/fetchProfileData";
 import UserData from "../../classes/UserData";
 
 import { kUserDataMock } from "../../mock/userData";
@@ -27,6 +27,7 @@ export default function Profile() {
   return (
     <div className="Profile">
       <h1>{`Bonjour ${profileData.firstName}`}</h1>
+      <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
     </div>
   );
 }
