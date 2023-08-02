@@ -1,12 +1,18 @@
 import { useState, useEffect } from "react";
 
-//import fetchProfileData from "../../services/fetchProfileData";
-import UserData from "../../classes/UserData";
+import DailyActivity from "../../components/DailyActivity";
 
-import { kUserDataMock } from "../../mock/userData";
+//import fetchProfileData from "../../services/fetchProfileData";
+
+import UserData from "../../classes/UserData";
+import UserActivity from "../../classes/UserActivity";
+
+import { kUserDataMock, kUserActivityMock } from "../../mock/userData";
 
 export default function Profile() {
   const [profileData, setProfileData] = useState(null);
+  const [profileActivity, setProfileActivity] = useState(null);
+
   useEffect(() => {
     //const kApiUrl = new URL("https://api.github.com/users/");
     //fetchProfileData(kApiUrl).then(data => setProfileData(data));
@@ -21,13 +27,20 @@ export default function Profile() {
       carbohydrateCount: kUserDataMock.keyData.carbohydrateCount,
       lipidCount: kUserDataMock.keyData.lipidCount,
     });
+
+    const userActivity = new UserActivity({
+      userId: kUserActivityMock.userId,
+      sessions: kUserActivityMock.sessions,
+    });
     setProfileData(userData);
+    setProfileActivity(userActivity);
   }, []);
 
   return (
     <div className="Profile">
-      <h1>{`Bonjour ${profileData.firstName}`}</h1>
+      <h1>{profileData ? `Bonjour ${profileData.firstName}` : "Chargement..."}</h1>
       <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+      {profileActivity ? <DailyActivity data={profileActivity} /> : "Chargement..."}
     </div>
   );
 }
