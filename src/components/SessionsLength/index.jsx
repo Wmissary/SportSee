@@ -1,4 +1,4 @@
-import { LineChart, Line, XAxis, YAxis, Tooltip } from "recharts";
+import { LineChart, Line, XAxis, Tooltip } from "recharts";
 
 export default function SessionsLength({ data }) {
   const userSessions = data.sessions.map((session, index) => {
