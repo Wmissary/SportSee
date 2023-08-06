@@ -4,6 +4,7 @@ import DailyActivity from "../../components/DailyActivity";
 import SessionsLength from "../../components/SessionsLength";
 import ActivityType from "../../components/ActivityType";
 import Score from "../../components/Score";
+import KeyCard from "../../components/KeyCard";
 
 //import fetchProfileData from "../../services/fetchProfileData";
 
@@ -13,6 +14,11 @@ import UserSessions from "../../classes/UserSessions";
 import UserPerformance from "../../classes/UserPerformance";
 
 import { kUserDataMock, kUserActivityMock, kUserAverageSessionsMock, kUserPerformanceMock } from "../../mock/userData";
+
+import caloriesSVG from "../../assets/calories.svg";
+import proteinSVG from "../../assets/proteins.svg";
+import carbohydrateSVG from "../../assets/glucides.svg";
+import lipidSVG from "../../assets/lipides.svg";
 
 export default function Profile() {
   const [profileData, setProfileData] = useState(null);
@@ -62,6 +68,14 @@ export default function Profile() {
       {profileSessions ? <SessionsLength data={profileSessions} /> : "Chargement..."}
       {profilePerformance ? <ActivityType data={profilePerformance} /> : "Chargement..."}
       {profileData ? <Score data={profileData} /> : "Chargement..."}
+      {profileData ? <KeyCard name="Calories" value={profileData.calorieCount} img={caloriesSVG} /> : "Chargement..."}
+      {profileData ? <KeyCard name="Protéines" value={profileData.proteinCount} img={proteinSVG} /> : "Chargement..."}
+      {profileData ? (
+        <KeyCard name="Glucides" value={profileData.carbohydrateCount} img={carbohydrateSVG} />
+      ) : (
+        "Chargement..."
+      )}
+      {profileData ? <KeyCard name="Lipides" value={profileData.lipidCount} img={lipidSVG} /> : "Chargement..."}
     </div>
   );
 }
