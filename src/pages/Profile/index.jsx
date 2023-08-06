@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import DailyActivity from "../../components/DailyActivity";
 import SessionsLength from "../../components/SessionsLength";
 import ActivityType from "../../components/ActivityType";
+import Score from "../../components/Score";
 
 //import fetchProfileData from "../../services/fetchProfileData";
 
@@ -53,7 +54,6 @@ export default function Profile() {
     setProfileSessions(userSessions);
     setProfilePerformance(userPerformance);
   }, []);
-
   return (
     <div className="Profile">
       <h1>{profileData ? `Bonjour ${profileData.firstName}` : "Chargement..."}</h1>
@@ -61,6 +61,7 @@ export default function Profile() {
       {profileActivity ? <DailyActivity data={profileActivity} /> : "Chargement..."}
       {profileSessions ? <SessionsLength data={profileSessions} /> : "Chargement..."}
       {profilePerformance ? <ActivityType data={profilePerformance} /> : "Chargement..."}
+      {profileData ? <Score data={profileData} /> : "Chargement..."}
     </div>
   );
 }

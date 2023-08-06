@@ -1,7 +1,6 @@
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from "recharts";
 
 export default function ActivityType({ data }) {
-  console.log(data);
   return (
     <div className="activitytype">
       <RadarChart cx={300} cy={250} outerRadius={150} width={600} height={500} data={data.data}>
