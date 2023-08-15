@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+//import { useParams } from "react-router-dom";
 
 import DailyActivity from "../../components/DailyActivity";
 import SessionsLength from "../../components/SessionsLength";
@@ -6,13 +7,9 @@ import ActivityType from "../../components/ActivityType";
 import Score from "../../components/Score";
 import KeyCard from "../../components/KeyCard";
 
-//import fetchProfileData from "../../services/fetchProfileData";
+//import fetchData from "../../services/fetchData";
 
-import UserData from "../../classes/UserData";
-import UserActivity from "../../classes/UserActivity";
-import UserSessions from "../../classes/UserSessions";
-import UserPerformance from "../../classes/UserPerformance";
-
+import { UserActivity, UserAverageSessions, UserData, UserPerformance } from "../../models/dataModel";
 import { kUserDataMock, kUserActivityMock, kUserAverageSessionsMock, kUserPerformanceMock } from "../../mock/userData";
 
 import caloriesSVG from "../../assets/calories.svg";
@@ -26,56 +23,76 @@ export default function Profile() {
   const [profileSessions, setProfileSessions] = useState(null);
   const [profilePerformance, setProfilePerformance] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  //const { id } = useParams();
+
   useEffect(() => {
-    //const kApiUrl = new URL("https://api.github.com/users/");
-    //fetchProfileData(kApiUrl).then(data => setProfileData(data));
-    const userData = new UserData({
-      id: kUserDataMock.id,
-      firstName: kUserDataMock.userInfos.firstName,
-      lastName: kUserDataMock.userInfos.lastName,
-      age: kUserDataMock.userInfos.age,
-      todayScore: kUserDataMock.todayScore,
-      calorieCount: kUserDataMock.keyData.calorieCount,
-      proteinCount: kUserDataMock.keyData.proteinCount,
-      carbohydrateCount: kUserDataMock.keyData.carbohydrateCount,
-      lipidCount: kUserDataMock.keyData.lipidCount,
-    });
+    const getData = async () => {
+      try {
+        // Fetch data from API
 
-    const userActivity = new UserActivity({
-      userId: kUserActivityMock.userId,
-      sessions: kUserActivityMock.sessions,
-    });
-    const userSessions = new UserSessions({
-      userId: kUserAverageSessionsMock.userId,
-      sessions: kUserAverageSessionsMock.sessions,
-    });
+        /*
+        const profileDataUrl = new URL("http://localhost:3000/user/" + id);
+        const fetchedUserData = await fetchData(profileDataUrl);
+        const userData = new UserData(fetchedUserData);
+        setProfileData(userData);
 
-    const userPerformance = new UserPerformance({
-      userId: kUserPerformanceMock.userId,
-      data: kUserPerformanceMock.data.map(item => ({ key: kUserPerformanceMock.kind[item.kind], value: item.value })),
-    });
+        const fetchedUserActivity = await fetchData(profileDataUrl + "/activity");
+        const userActivity = new UserActivity(fetchedUserActivity);
+        setProfileActivity(userActivity);
 
-    setProfileData(userData);
-    setProfileActivity(userActivity);
-    setProfileSessions(userSessions);
-    setProfilePerformance(userPerformance);
+        const fetchedUserSessions = await fetchData(profileDataUrl + "/average-sessions");
+        const userSessions = new UserAverageSessions(fetchedUserSessions);
+        setProfileSessions(userSessions);
+
+        const fetchedUserPerformance = await fetchData(profileDataUrl + "/performance");
+        const userPerformance = new UserPerformance(fetchedUserPerformance);
+        setProfilePerformance(userPerformance);
+
+        */
+
+        // Fetch data from mock
+        const userData = new UserData(kUserDataMock);
+        setProfileData(userData);
+
+        const userActivity = new UserActivity(kUserActivityMock);
+        setProfileActivity(userActivity);
+
+        const userSessions = new UserAverageSessions(kUserAverageSessionsMock);
+        setProfileSessions(userSessions);
+
+        const userPerformance = new UserPerformance(kUserPerformanceMock);
+        setProfilePerformance(userPerformance);
+      } catch (e) {
+        setError(e);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    getData();
   }, []);
+
+  if (error) {
+    return <div className="Profile">Une erreur est survenue : {error.message}</div>;
+  }
+
+  if (isLoading) {
+    return <div className="Profile">Chargement...</div>;
+  }
+
   return (
     <div className="Profile">
-      <h1>{profileData ? `Bonjour ${profileData.firstName}` : "Chargement..."}</h1>
+      <h1>{`Bonjour ${profileData.firstName}`}</h1>
       <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
-      {profileActivity ? <DailyActivity data={profileActivity} /> : "Chargement..."}
-      {profileSessions ? <SessionsLength data={profileSessions} /> : "Chargement..."}
-      {profilePerformance ? <ActivityType data={profilePerformance} /> : "Chargement..."}
-      {profileData ? <Score data={profileData} /> : "Chargement..."}
-      {profileData ? <KeyCard name="Calories" value={profileData.calorieCount} img={caloriesSVG} /> : "Chargement..."}
-      {profileData ? <KeyCard name="Protéines" value={profileData.proteinCount} img={proteinSVG} /> : "Chargement..."}
-      {profileData ? (
-        <KeyCard name="Glucides" value={profileData.carbohydrateCount} img={carbohydrateSVG} />
-      ) : (
-        "Chargement..."
-      )}
-      {profileData ? <KeyCard name="Lipides" value={profileData.lipidCount} img={lipidSVG} /> : "Chargement..."}
+      <DailyActivity data={profileActivity} />
+      <SessionsLength data={profileSessions} />
+      <ActivityType data={profilePerformance} />
+      <Score data={profileData} />
+      <KeyCard name="Calories" value={profileData.keyData.calorieCount} img={caloriesSVG} />
+      <KeyCard name="Protéines" value={profileData.keyData.proteinCount} img={proteinSVG} />
+      <KeyCard name="Glucides" value={profileData.keyData.carbohydrateCount} img={carbohydrateSVG} />
+      <KeyCard name="Lipides" value={profileData.keyData.lipidCount} img={lipidSVG} />
     </div>
   );
 }
