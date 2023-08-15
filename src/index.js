@@ -18,7 +18,7 @@ root.render(
     <Router>
       {window.location.pathname === "/" && <RedirectToRandomProfile />}
       <Routes>
-        <Route path="/profile/:id" component={Profile} />
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
     </Router>
   </React.StrictMode>,
