@@ -1,4 +1,4 @@
-import { LineChart, Line, XAxis, Tooltip } from "recharts";
+import { LineChart, Line, XAxis, Tooltip, YAxis } from "recharts";
 
 export default function SessionsLength({ data }) {
   const userSessions = data.sessions.map((session, index) => {
@@ -9,13 +9,24 @@ export default function SessionsLength({ data }) {
     };
   });
   return (
-    <div className="sessionslength">
-      <h2 className="sessionslength__title">Durée moyenne des sessions</h2>
-      <LineChart width={400} height={400} data={userSessions}>
-        <Line type="monotone" dataKey="sessionLength" stroke="#8884d8" />
-        <XAxis dataKey="day" axisLine={false} tickLine={false} />
-        <Tooltip />
-      </LineChart>
-    </div>
+    <LineChart
+      width={238}
+      height={243}
+      data={userSessions}
+      style={{
+        backgroundColor: "#FF0000",
+        padding: "20px",
+        borderRadius: "5px",
+        margin: 10,
+      }}
+    >
+      <text y={15} textAnchor="top" fontSize={18} fill="#FFFFFF">
+        Durée moyenne des sessions
+      </text>
+      <Line type="bump" dataKey="sessionLength" stroke="#FFFFFF" strokeWidth={3} />
+      <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{ fill: "#FFFFFF" }} />
+      <YAxis dataKey="sessionLength" axisLine={false} tickLine={false} tick={{ fill: "#FFFFFF" }} hide />
+      <Tooltip />
+    </LineChart>
   );
 }

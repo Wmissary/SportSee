@@ -2,12 +2,20 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis } from "recharts";
 
 export default function ActivityType({ data }) {
   return (
-    <div className="activitytype">
-      <RadarChart cx={300} cy={250} outerRadius={150} width={600} height={500} data={data.data}>
-        <PolarGrid />
-        <PolarAngleAxis dataKey="kind" />
-        <Radar name="Performance" dataKey="value" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-      </RadarChart>
-    </div>
+    <RadarChart
+      width={238}
+      height={243}
+      data={data.data}
+      style={{
+        backgroundColor: "#282D30",
+        padding: "20px",
+        borderRadius: "5px",
+        margin: 10,
+      }}
+    >
+      <PolarGrid />
+      <PolarAngleAxis dataKey="kind" />
+      <Radar name="Performance" dataKey="value" stroke="#FF0101" fill="#FF0101" fillOpacity={0.7} />
+    </RadarChart>
   );
 }

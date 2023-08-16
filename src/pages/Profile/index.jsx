@@ -17,6 +17,8 @@ import proteinSVG from "../../assets/proteins.svg";
 import carbohydrateSVG from "../../assets/glucides.svg";
 import lipidSVG from "../../assets/lipides.svg";
 
+import style from "../../css/style.css";
+
 export default function Profile() {
   const [profileData, setProfileData] = useState(null);
   const [profileActivity, setProfileActivity] = useState(null);
@@ -82,17 +84,53 @@ export default function Profile() {
   }
 
   return (
-    <div className="Profile">
-      <h1>{`Bonjour ${profileData.firstName}`}</h1>
-      <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
-      <DailyActivity data={profileActivity} />
-      <SessionsLength data={profileSessions} />
-      <ActivityType data={profilePerformance} />
-      <Score data={profileData} />
-      <KeyCard name="Calories" value={profileData.keyData.calorieCount} img={caloriesSVG} />
-      <KeyCard name="Protéines" value={profileData.keyData.proteinCount} img={proteinSVG} />
-      <KeyCard name="Glucides" value={profileData.keyData.carbohydrateCount} img={carbohydrateSVG} />
-      <KeyCard name="Lipides" value={profileData.keyData.lipidCount} img={lipidSVG} />
-    </div>
+    <main className="Profile">
+      <div className="Profile__header">
+        <h1>
+          Bonjour <span> {profileData.firstName}</span>
+        </h1>
+        <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
+      </div>
+      <section className="Profile__main">
+        <div className="Profile__main__wrapper">
+          <DailyActivity data={profileActivity} />
+          <div className="Profile__main__flex">
+            <SessionsLength data={profileSessions} />
+            <ActivityType data={profilePerformance} />
+            <Score data={profileData} />
+          </div>
+        </div>
+        <aside className="Profile__aside">
+          <KeyCard
+            name="Calories"
+            value={profileData.keyData.calorieCount}
+            img={caloriesSVG}
+            color={"rgba(255, 0, 0, 0.1)"}
+            unit="kCal"
+          />
+          <KeyCard
+            name="Protéines"
+            value={profileData.keyData.proteinCount}
+            img={proteinSVG}
+            color={"rgba(74, 184, 255, 0.1)"}
+            unit="g"
+          />
+          <KeyCard
+            name="Glucides"
+            value={profileData.keyData.carbohydrateCount}
+            img={carbohydrateSVG}
+            color={"rgba(249, 206, 35, 0.1)"}
+            unit="g"
+          />
+          <KeyCard
+            name="Lipides"
+            value={profileData.keyData.lipidCount}
+            img={lipidSVG}
+            color={"rgba(253, 81, 129, 0.1)"}
+            unit="g"
+          />
+        </aside>
+      </section>
+    </main>
   );
 }

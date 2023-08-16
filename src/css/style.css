@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.Profile {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Profile__header {
+  margin: 40px 10px 40px 10px;
+}
+
+.Profile__header h1 {
+  margin-bottom: 20px;
+  font-size: 48px;
+}
+
+.Profile__header span {
+  color: #ff0101;
+}
+
+.Profile__header p {
+  font-size: 20px;
+}
+
+.Profile__main {
+  display: flex;
+}
+
+.Profile__main__flex {
+  display: flex;
+}
+
+.Profile__aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 10px;
+}
