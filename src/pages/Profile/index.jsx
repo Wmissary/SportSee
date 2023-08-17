@@ -14,7 +14,7 @@ import proteinSVG from "../../assets/proteins.svg";
 import carbohydrateSVG from "../../assets/glucides.svg";
 import lipidSVG from "../../assets/lipides.svg";
 
-import style from "../../css/style.css";
+import "../../css/style.css";
 
 export default function Profile() {
   const [profileData, setProfileData] = useState(null);
@@ -41,7 +41,7 @@ export default function Profile() {
       }
     };
     getData();
-  }, []);
+  }, [id]);
 
   if (error) {
     return <div className="Profile">Une erreur est survenue : {error.message}</div>;
