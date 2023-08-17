@@ -89,7 +89,7 @@ const kUserAverageSessionsMock = {
   ],
 };
 
-const kUserPerformanceMock = {
+const kUserPerformancesMock = {
   userId: 12,
   kind: {
     1: "cardio",
@@ -127,4 +127,4 @@ const kUserPerformanceMock = {
   ],
 };
 
-export { kUserDataMock, kUserActivityMock, kUserAverageSessionsMock, kUserPerformanceMock };
+export { kUserDataMock, kUserActivityMock, kUserAverageSessionsMock, kUserPerformancesMock };

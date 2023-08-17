@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-//import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import DailyActivity from "../../components/DailyActivity";
 import SessionsLength from "../../components/SessionsLength";
@@ -7,10 +7,7 @@ import ActivityType from "../../components/ActivityType";
 import Score from "../../components/Score";
 import KeyCard from "../../components/KeyCard";
 
-//import fetchData from "../../services/fetchData";
-
-import { UserActivity, UserAverageSessions, UserData, UserPerformance } from "../../models/dataModel";
-import { kUserDataMock, kUserActivityMock, kUserAverageSessionsMock, kUserPerformanceMock } from "../../mock/userData";
+import getUserProfile from "../../services/getUserProfile";
 
 import caloriesSVG from "../../assets/calories.svg";
 import proteinSVG from "../../assets/proteins.svg";
@@ -27,45 +24,16 @@ export default function Profile() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  //const { id } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     const getData = async () => {
       try {
-        // Fetch data from API
-
-        /*
-        const profileDataUrl = new URL("http://localhost:3000/user/" + id);
-        const fetchedUserData = await fetchData(profileDataUrl);
-        const userData = new UserData(fetchedUserData);
-        setProfileData(userData);
-
-        const fetchedUserActivity = await fetchData(profileDataUrl + "/activity");
-        const userActivity = new UserActivity(fetchedUserActivity);
-        setProfileActivity(userActivity);
-
-        const fetchedUserSessions = await fetchData(profileDataUrl + "/average-sessions");
-        const userSessions = new UserAverageSessions(fetchedUserSessions);
-        setProfileSessions(userSessions);
-
-        const fetchedUserPerformance = await fetchData(profileDataUrl + "/performance");
-        const userPerformance = new UserPerformance(fetchedUserPerformance);
-        setProfilePerformance(userPerformance);
-
-        */
-
-        // Fetch data from mock
-        const userData = new UserData(kUserDataMock);
-        setProfileData(userData);
-
-        const userActivity = new UserActivity(kUserActivityMock);
-        setProfileActivity(userActivity);
-
-        const userSessions = new UserAverageSessions(kUserAverageSessionsMock);
-        setProfileSessions(userSessions);
-
-        const userPerformance = new UserPerformance(kUserPerformanceMock);
-        setProfilePerformance(userPerformance);
+        const data = await getUserProfile({ id, isMock: true });
+        setProfileData(data.userData);
+        setProfileActivity(data.userActivity);
+        setProfileSessions(data.userAverageSessions);
+        setProfilePerformance(data.userPerformances);
       } catch (e) {
         setError(e);
       } finally {
