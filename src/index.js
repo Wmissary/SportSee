@@ -9,7 +9,7 @@ const RedirectToRandomProfile = () => {
     const kAvailableProfilesId = [12, 18];
     const randomProfileId = kAvailableProfilesId[Math.floor(Math.random() * kAvailableProfilesId.length)];
     navigate(`/profile/${randomProfileId}`);
-  }, [navigate]);
+  }, []);
 };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

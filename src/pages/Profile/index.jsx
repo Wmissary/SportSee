@@ -29,7 +29,7 @@ export default function Profile() {
   useEffect(() => {
     const getData = async () => {
       try {
-      const data = await getUserProfile({ id, isMock: true });
+        const data = await getUserProfile({ id, isMock: false });
         setProfileData(data.userData);
         setProfileActivity(data.userActivity);
         setProfileSessions(data.userAverageSessions);

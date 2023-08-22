@@ -4,7 +4,7 @@ export default class UserData {
     this.firstName = data.userInfos.firstName;
     this.lastName = data.userInfos.lastName;
     this.age = data.userInfos.age;
-    this.todayScore = data.todayScore;
+    this.todayScore = data.todayScore ?? 0;
     this.keyData = {
       calorieCount: data.keyData.calorieCount,
       proteinCount: data.keyData.proteinCount,

@@ -28,7 +28,7 @@ export default function Score({ data }) {
           Score
         </text>
         <text x={96} y={120} textAnchor="top" fontSize={36}>
-          {data.todayScore ? data.todayScore * 100 : 0}%
+          {data.todayScore * 100}%
         </text>
         <text x={56} y={150} textAnchor="top" fontSize={22}>
           de votre objectif
