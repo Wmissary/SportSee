@@ -3,9 +3,9 @@ import UserAverageSessions from "../models/UserAverageSessions.js";
 import { kUserAverageSessionsMock } from "../mock/userData.js";
 
 async function getUserAverageSessions(url, id) {
-  const profileDataUrl = new URL(url + "/user/" + id + "/average-sessions");
+  const profileDataUrl = new URL(url + "user/" + id + "/average-sessions");
   const fetchedUserAverageSessions = await fetchData(profileDataUrl);
-  const userAverageSessions = new UserAverageSessions(fetchedUserAverageSessions);
+  const userAverageSessions = new UserAverageSessions(fetchedUserAverageSessions.data);
   return userAverageSessions;
 }
 

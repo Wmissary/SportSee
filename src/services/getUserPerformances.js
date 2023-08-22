@@ -3,9 +3,9 @@ import UserPerformances from "../models/UserPerformances";
 import { kUserPerformancesMock } from "../mock/userData";
 
 async function getUserPerformances(url, id) {
-  const profileDataUrl = new URL(url + "/user/" + id + "/performance");
+  const profileDataUrl = new URL(url + "user/" + id + "/performance");
   const fetchedUserPerformances = await fetchData(profileDataUrl);
-  const userPerformances = new UserPerformances(fetchedUserPerformances);
+  const userPerformances = new UserPerformances(fetchedUserPerformances.data);
   return userPerformances;
 }
 

@@ -1,13 +1,12 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .Profile {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 0 auto;
+  max-width: 1120px;
 }
 
 .Profile__header {
@@ -33,6 +32,7 @@
 
 .Profile__main__flex {
   display: flex;
+  justify-content: space-between;
 }
 
 .Profile__aside {
@@ -40,6 +40,14 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   margin: 10px;
+}
+
+@media screen and (max-width: 1099px) {
+  .Profile__main {
+    flex-direction: column;
+  }
+  .Profile__aside {
+    flex-direction: row;
+  }
 }

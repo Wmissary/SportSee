@@ -7,8 +7,8 @@ export default function KeyCard({ value, name, img, color, unit }) {
         alignItems: "center",
         justifyContent: "space-evenly",
         backgroundColor: "#FBFBFB",
-        width: "258px",
-        height: "124px",
+        width: "200px",
+        height: "100px",
       }}
     >
       <div

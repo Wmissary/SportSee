@@ -29,7 +29,7 @@ export default function Profile() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const data = await getUserProfile({ id, isMock: true });
+      const data = await getUserProfile({ id, isMock: true });
         setProfileData(data.userData);
         setProfileActivity(data.userActivity);
         setProfileSessions(data.userAverageSessions);
@@ -41,7 +41,7 @@ export default function Profile() {
       }
     };
     getData();
-  }, [id]);
+  }, []);
 
   if (error) {
     return <div className="Profile">Une erreur est survenue : {error.message}</div>;

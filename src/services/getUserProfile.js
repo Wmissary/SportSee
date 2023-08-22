@@ -4,7 +4,7 @@ import { getUserAverageSessions, getUserAverageSessionsMock } from "./getUserAve
 import { getUserPerformances, getUserPerformancesMock } from "./getUserPerformances";
 
 export default async function getUserProfile({ id, isMock = false }) {
-  const kURL = new URL("https://localhost:3000");
+  const kURL = new URL("http://localhost:3000");
 
   const userData = isMock ? await getUserDataMock() : await getUserData(kURL, id);
   const userActivity = isMock ? await getUserActivityMock() : await getUserActivity(kURL, id);
