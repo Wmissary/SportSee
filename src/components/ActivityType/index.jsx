@@ -12,7 +12,7 @@ const ActivityTypeContainer = styled.div`
 export default function ActivityType({ data }) {
   return (
     <ActivityTypeContainer>
-      <RadarChart width={250} height={250} data={data.data}>
+      <RadarChart outerRadius="65%" width={250} height={250} data={data.data}>
         <PolarGrid />
         <PolarAngleAxis dataKey="kind" fontSize={12} />
         <Radar name="Performance" dataKey="value" stroke="#FF0101" fill="#FF0101" fillOpacity={0.7} />

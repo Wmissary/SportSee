@@ -45,7 +45,7 @@
 
 @media screen and (max-width: 1099px) {
   .Profile__main {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
   .Profile__aside {
     flex-direction: row;

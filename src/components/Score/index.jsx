@@ -27,10 +27,10 @@ export default function Score({ data }) {
         <text y={15} textAnchor="top" fontSize={15} fontWeight={500}>
           Score
         </text>
-        <text x={90} y={120} textAnchor="top" fontSize={36}>
+        <text x={96} y={120} textAnchor="top" fontSize={36}>
           {data.todayScore ? data.todayScore * 100 : 0}%
         </text>
-        <text x={50} y={150} textAnchor="top" fontSize={22}>
+        <text x={56} y={150} textAnchor="top" fontSize={22}>
           de votre objectif
         </text>
       </RadialBarChart>
