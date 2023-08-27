@@ -2,8 +2,9 @@ import fetchData from "./fetchData.js";
 import UserActivity from "../models/UserActivity.js";
 import { kUserActivityMock } from "../mock/userData.js";
 
-async function getUserActivity(url, id) {
-  const profileDataUrl = new URL(url + "user/" + id + "/activity");
+async function getUserActivity(id) {
+  const kURL = new URL("http://localhost:3000/user/");
+  const profileDataUrl = new URL(kURL + id + "/activity");
   const fetchedUserActivity = await fetchData(profileDataUrl);
   const userActivity = new UserActivity(fetchedUserActivity.data);
   return userActivity;

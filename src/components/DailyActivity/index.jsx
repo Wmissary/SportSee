@@ -1,5 +1,7 @@
+import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import styled from "styled-components";
+import { getUserActivity } from "../../services/getUserActivity";
 
 const DailyActivityContainer = styled.div`
   background-color: #fbfbfb;
@@ -11,17 +13,31 @@ const DailyActivityContainer = styled.div`
   justify-content: center;
 `;
 
-export default function DailyActivity({ data }) {
-  const UserActivity = data.sessions.map((session, index) => {
-    return {
-      day: index + 1,
-      kilogram: session.kilogram,
-      calories: session.calories,
+export default function DailyActivity({ userId }) {
+  const [userActivity, setUserActivity] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getUserActivity(userId);
+        setUserActivity(
+          data.sessions.map((session, index) => ({
+            day: index + 1,
+            kilogram: session.kilogram,
+            calories: session.calories,
+          })),
+        );
+      } catch (error) {
+        // Gérer l'erreur
+      }
     };
-  });
+
+    fetchData();
+  }, [userId]);
+
   return (
     <DailyActivityContainer>
-      <BarChart width={835} height={320} data={UserActivity} barCategoryGap={42} barGap={10}>
+      <BarChart width={835} height={320} data={userActivity} barCategoryGap={42} barGap={10}>
         <text y={25} textAnchor="top" fontSize={25}>
           Activité quotidienne
         </text>

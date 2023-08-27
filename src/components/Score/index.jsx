@@ -9,7 +9,7 @@ const ScoreContainer = styled.div`
   box-shadow: 0px 2px 4px 0px #00000005;
 `;
 
-export default function Score({ data }) {
+export default function Score({ todayScore }) {
   return (
     <ScoreContainer>
       <RadialBarChart
@@ -17,7 +17,7 @@ export default function Score({ data }) {
         height={250}
         innerRadius="100%"
         data={[
-          { todayScore: data.todayScore * 100, fill: "#FF0000" },
+          { todayScore: todayScore * 100, fill: "#FF0000" },
           { todayScore: 100, fill: "#FBFBFB" },
         ]}
         startAngle={210}
@@ -28,7 +28,7 @@ export default function Score({ data }) {
           Score
         </text>
         <text x={96} y={120} textAnchor="top" fontSize={36}>
-          {data.todayScore * 100}%
+          {todayScore * 100}%
         </text>
         <text x={56} y={150} textAnchor="top" fontSize={22}>
           de votre objectif

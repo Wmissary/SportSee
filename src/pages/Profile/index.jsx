@@ -7,7 +7,7 @@ import ActivityType from "../../components/ActivityType";
 import Score from "../../components/Score";
 import KeyCard from "../../components/KeyCard";
 
-import getUserProfile from "../../services/getUserProfile";
+import { getUserData } from "../../services/getUserData";
 
 import caloriesSVG from "../../assets/calories.svg";
 import proteinSVG from "../../assets/proteins.svg";
@@ -17,86 +17,67 @@ import lipidSVG from "../../assets/lipides.svg";
 import "../../css/style.css";
 
 export default function Profile() {
-  const [profileData, setProfileData] = useState(null);
-  const [profileActivity, setProfileActivity] = useState(null);
-  const [profileSessions, setProfileSessions] = useState(null);
-  const [profilePerformance, setProfilePerformance] = useState(null);
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
   const { id } = useParams();
+  const [profileName, setProfileName] = useState(null);
+  const [profileScore, setProfileScore] = useState(null);
+  const [profileCalories, setProfileCalories] = useState(null);
+  const [profileProteins, setProfileProteins] = useState(null);
+  const [profileCarbohydrates, setProfileCarbohydrates] = useState(null);
+  const [profileLipids, setProfileLipids] = useState(null);
 
   useEffect(() => {
     const getData = async () => {
-      try {
-        const data = await getUserProfile({ id, isMock: false });
-        setProfileData(data.userData);
-        setProfileActivity(data.userActivity);
-        setProfileSessions(data.userAverageSessions);
-        setProfilePerformance(data.userPerformances);
-      } catch (e) {
-        setError(e);
-      } finally {
-        setIsLoading(false);
-      }
+      const data = await getUserData(id);
+      setProfileName(data.firstName);
+      setProfileScore(data.todayScore);
+      setProfileCalories(data.keyData.calorieCount);
+      setProfileProteins(data.keyData.proteinCount);
+      setProfileCarbohydrates(data.keyData.carbohydrateCount);
+      setProfileLipids(data.keyData.lipidCount);
     };
     getData();
-  }, []);
-
-  if (error) {
-    return <div className="Profile">Une erreur est survenue : {error.message}</div>;
-  }
-
-  if (isLoading) {
-    return <div className="Profile">Chargement...</div>;
-  }
+  });
 
   return (
     <main className="Profile">
       <div className="Profile__header">
         <h1>
-          Bonjour <span> {profileData.firstName}</span>
+          Bonjour <span> {profileName ? profileName : "Chargement..."}</span>
         </h1>
         <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
       </div>
       <section className="Profile__main">
         <div className="Profile__main__wrapper">
-          <DailyActivity data={profileActivity} />
+          <DailyActivity userId={id} />
           <div className="Profile__main__flex">
-            <SessionsLength data={profileSessions} />
-            <ActivityType data={profilePerformance} />
-            <Score data={profileData} />
+            <SessionsLength userId={id} />
+            <ActivityType userId={id} />
+            <Score todayScore={profileScore ? profileScore : 0} />
           </div>
         </div>
         <aside className="Profile__aside">
           <KeyCard
             name="Calories"
-            value={profileData.keyData.calorieCount}
+            value={profileCalories}
             img={caloriesSVG}
             color={"rgba(255, 0, 0, 0.1)"}
             unit="kCal"
           />
           <KeyCard
             name="Protéines"
-            value={profileData.keyData.proteinCount}
+            value={profileProteins}
             img={proteinSVG}
             color={"rgba(74, 184, 255, 0.1)"}
             unit="g"
           />
           <KeyCard
             name="Glucides"
-            value={profileData.keyData.carbohydrateCount}
+            value={profileCarbohydrates}
             img={carbohydrateSVG}
             color={"rgba(249, 206, 35, 0.1)"}
             unit="g"
           />
-          <KeyCard
-            name="Lipides"
-            value={profileData.keyData.lipidCount}
-            img={lipidSVG}
-            color={"rgba(253, 81, 129, 0.1)"}
-            unit="g"
-          />
+          <KeyCard name="Lipides" value={profileLipids} img={lipidSVG} color={"rgba(253, 81, 129, 0.1)"} unit="g" />
         </aside>
       </section>
     </main>

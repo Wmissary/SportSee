@@ -1,5 +1,9 @@
+import { useEffect, useState } from "react";
+
 import { LineChart, Line, XAxis, Tooltip, YAxis } from "recharts";
 import styled from "styled-components";
+
+import { getUserAverageSessions } from "../../services/getUserAverageSessions";
 
 const SessionsLengthContainer = styled.div`
   background-color: #ff0000;
@@ -9,14 +13,26 @@ const SessionsLengthContainer = styled.div`
   box-shadow: 0px 2px 4px 0px #00000005;
 `;
 
-export default function SessionsLength({ data }) {
-  const userSessions = data.sessions.map((session, index) => {
-    const days = ["L", "M", "M", "J", "V", "S", "D"];
-    return {
-      day: days[index],
-      sessionLength: session.sessionLength,
+export default function SessionsLength({ userId }) {
+  const [userSessions, setUserSessions] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getUserAverageSessions(userId);
+        setUserSessions(
+          data.sessions.map((session, index) => ({
+            day: index + 1,
+            sessionLength: session.sessionLength,
+          })),
+        );
+      } catch (error) {
+        // Gérer l'erreur
+      }
     };
-  });
+    fetchData();
+  }, [userId]);
+
   return (
     <SessionsLengthContainer>
       <LineChart width={250} height={250} data={userSessions}>
