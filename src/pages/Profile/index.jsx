@@ -27,13 +27,17 @@ export default function Profile() {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getUserData(id);
-      setProfileName(data.firstName);
-      setProfileScore(data.todayScore);
-      setProfileCalories(data.keyData.calorieCount);
-      setProfileProteins(data.keyData.proteinCount);
-      setProfileCarbohydrates(data.keyData.carbohydrateCount);
-      setProfileLipids(data.keyData.lipidCount);
+      try {
+        const data = await getUserData(id);
+        setProfileName(data.firstName);
+        setProfileScore(data.todayScore);
+        setProfileCalories(data.keyData.calorieCount);
+        setProfileProteins(data.keyData.proteinCount);
+        setProfileCarbohydrates(data.keyData.carbohydrateCount);
+        setProfileLipids(data.keyData.lipidCount);
+      } catch {
+        console.log("error");
+      }
     };
     getData();
   });

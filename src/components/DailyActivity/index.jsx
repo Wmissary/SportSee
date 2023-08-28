@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import styled from "styled-components";
-import { getUserActivity } from "../../services/getUserActivity";
+import { getUserActivityMock as getUserActivity } from "../../services/getUserActivity";
 
 export default function DailyActivity({ userId }) {
   const [userActivity, setUserActivity] = useState([]);
@@ -26,7 +26,7 @@ export default function DailyActivity({ userId }) {
   }, [userId]);
 
   const CustomTooltip = ({ active, payload }) => {
-    if (active) {
+    if (active && payload) {
       return (
         <TooltipContainer>
           <p>{`${payload[0].value}kg`}</p>

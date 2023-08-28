@@ -27,7 +27,7 @@ export default function SessionsLength({ userId }) {
   }, [userId]);
 
   const CustomTooltip = ({ active, payload }) => {
-    if (active) {
+    if (active && payload) {
       return (
         <TooltipContainer>
           <p>{`${payload[0].value} min`}</p>
