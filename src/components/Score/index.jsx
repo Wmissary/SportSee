@@ -1,14 +1,6 @@
 import { RadialBarChart, RadialBar } from "recharts";
 import styled from "styled-components";
 
-const ScoreContainer = styled.div`
-  background-color: #fbfbfb;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
-  box-shadow: 0px 2px 4px 0px #00000005;
-`;
-
 export default function Score({ todayScore }) {
   return (
     <ScoreContainer>
@@ -37,3 +29,11 @@ export default function Score({ todayScore }) {
     </ScoreContainer>
   );
 }
+
+const ScoreContainer = styled.div`
+  background-color: #fbfbfb;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0px 2px 4px 0px #00000005;
+`;

@@ -3,16 +3,6 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "rec
 import styled from "styled-components";
 import { getUserActivity } from "../../services/getUserActivity";
 
-const DailyActivityContainer = styled.div`
-  background-color: #fbfbfb;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
-  box-shadow: 0px 2px 4px 0px #00000005;
-  display: flex;
-  justify-content: center;
-`;
-
 export default function DailyActivity({ userId }) {
   const [userActivity, setUserActivity] = useState([]);
 
@@ -35,6 +25,17 @@ export default function DailyActivity({ userId }) {
     fetchData();
   }, [userId]);
 
+  const CustomTooltip = ({ active, payload }) => {
+    if (active) {
+      return (
+        <TooltipContainer>
+          <p>{`${payload[0].value}kg`}</p>
+          <p>{`${payload[1].value}kCal`}</p>
+        </TooltipContainer>
+      );
+    }
+  };
+
   return (
     <DailyActivityContainer>
       <BarChart width={835} height={320} data={userActivity} barCategoryGap={42} barGap={10}>
@@ -44,7 +45,7 @@ export default function DailyActivity({ userId }) {
         <XAxis dataKey="day" />
         <YAxis dataKey="calories" orientation="right" type="number" />
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <Legend iconType="circle" iconSize={8} align="right" verticalAlign="top" wrapperStyle={{ padding: "50px" }} />
         <Bar dataKey="kilogram" fill="#282D30" name="Poids (kg)" radius={[20, 20, 0, 0]} />
         <Bar dataKey="calories" fill="#E60000" name="Calories brûlées (kCal)" radius={[20, 20, 0, 0]} />
@@ -52,3 +53,25 @@ export default function DailyActivity({ userId }) {
     </DailyActivityContainer>
   );
 }
+
+const DailyActivityContainer = styled.div`
+  background-color: #fbfbfb;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0px 2px 4px 0px #00000005;
+  display: flex;
+  justify-content: center;
+`;
+
+const TooltipContainer = styled.div`
+  background-color: #e60000;
+  width: 70px;
+  height: 100px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 500;
+`;

@@ -5,14 +5,6 @@ import styled from "styled-components";
 
 import { getUserPerformances } from "../../services/getUserPerformances";
 
-const ActivityTypeContainer = styled.div`
-  background-color: #282d30;
-  border-radius: 5px;
-  margin: 10px;
-  padding: 10px;
-  box-shadow: 0px 2px 4px 0px #00000005;
-`;
-
 export default function ActivityType({ userId }) {
   const [data, setData] = useState([]);
 
@@ -38,3 +30,11 @@ export default function ActivityType({ userId }) {
     </ActivityTypeContainer>
   );
 }
+
+const ActivityTypeContainer = styled.div`
+  background-color: #282d30;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0px 2px 4px 0px #00000005;
+`;
