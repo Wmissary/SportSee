@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from "recharts";
 import styled from "styled-components";
-import { getUserActivityMock as getUserActivity } from "../../services/getUserActivity";
+import { getUserActivity } from "../../services/getUserActivity";
 
 export default function DailyActivity({ userId }) {
   const [userActivity, setUserActivity] = useState([]);
